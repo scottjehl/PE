@@ -3,9 +3,9 @@ A Progressive Enhancement templating language
 
 🔗 ("link") is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
 
-The goal of 🔗 is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding relationships so it can serve as a template for future updates as well.
+The goal of 🔗 is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding references so it can serve as a template for future updates as well.
 
-**The template output is still a template!**
+**The output of the template is still a template!**
 
 🔗 uses a templating syntax built on standard HTML data attributes that are meant to stay in the HTML after it is rendered, rather than being removed, allowing for simple declarative progressive enhancement in the browser. These attributes reference relationships between HTML elements and JavaScript variables, arrays, objects, and properties for one-way data binding that can populate and update the element's content and attributes. 
 
