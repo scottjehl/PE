@@ -32,7 +32,18 @@ HTML Output (after parsing by 🔗.js):
 
 Above, a source template containing an `h1` element starts with a `data-🔗-text` attribute to communicate a relationship to a JavaScript variable, or property in this case: `data.page.title`. The `text` suffix in the attribute name says that the referenced property should provide the text content for the element. 🔗.js, a tiny 🔗 JavaScript library that can run on the server in Node and in the browser, populates the text of the element while leaving the attribute in place, retaining its relationship to the property for later updates.
 
-While this example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
+### Client-side continuation
+
+The example above can simply be used to serve a static HTML page, but in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and 🔗.js library, which can be added to the bottom of the page like so.
+
+```html
+<script>const data = { page: { title: "This is the article title" } }</script>
+<script defer src="/path/to/🔗.js"></script>
+```
+
+From there, no custom scripting will be needed to keep HTML elements bound to their data. You could write some code to update that data directly and the HTML will stay in sync.
+
+It should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
 
 Server HTML Template:
 ```html
