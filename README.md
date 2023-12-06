@@ -7,7 +7,7 @@ The goal of pe is to offer a simple way to generate usable and meaningful HTML f
 
 **The output of the template is still a template!**
 
-pe uses a templating syntax built on standard HTML data attributes that are meant to stay in the HTML after it is rendered, rather than being removed, allowing for simple declarative progressive enhancement in the browser. These attributes reference relationships between HTML elements and JavaScript variables, arrays, objects, and properties for one-way data binding that can populate and update the element's content and attributes. 
+pe uses a templating syntax built on standard HTML data attributes that are meant to stay in the HTML after it is rendered, rather than being removed, allowing for simple declarative progressive enhancement in the browser. These attributes reference relationships between HTML elements and JavaScript variables, arrays, objects, and properties for one-way data binding that can populate and update the element's content and attributes.
 
 In other words, when a variable changes, any markup linked to that variable will update. 
 
@@ -55,27 +55,13 @@ export default {
 
 ### Running pe in the Browser
 
-The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the bottom of the HTML like so.
+The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the HTML as a whole, or ideally, used within Web Components to scope the data locally.
 
-```html
-<script>const data = { page: { title: "This is the article title" } }</script>
-<script defer src="/path/to/pe.js"></script>
-```
-
-With those in place, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, pe.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
-
-While it should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-pe-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, pe can even track a built-in variable like `window.innerWidth`:
-
-HTML Template:
-```html
-<p data-pe-text="window.innerWidth"></h1>
-```
-
-...which would update the text of that element to match the browser window's width, in real time as you resize the window!
+With the data and pe.js loaded in the browser, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, pe.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
 
 ## Client-side Manual Updates
 
-pe is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with pe on the client-side, simply append your HTML to the DOM and pe will automatically update it appropriately. 
+pe is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with pe on the client-side, simply append your HTML to the (light) DOM and pe will automatically update it appropriately. 
 
 That said, if you want to get pe-rendered HTML before appending it in the DOM, you can always run the `pe(template, data)` function directly by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
 
@@ -254,7 +240,6 @@ The client-side doesn't care how the initial HTML was generated. It only cares a
 
 - First, pe.js doesn't exist yet! Sorry. It's [in development](pe.js)!
 - Second, text binding works best when setting the entire inner content of an element. This means that in situations where you might be used to say, dropping a string variable like `hello, {{user.name}}!` into the text in an element, you'll likely want to use a wrapper element to isolate it instead, like this: `hello, <span data-pe-text="user.name"></span>`
-- Lastly, if you want to run pe without pe.js on the server, or 
 
 
 ## More soon! -Scott :)
