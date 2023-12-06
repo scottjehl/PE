@@ -32,26 +32,48 @@ HTML Output (after parsing by 🔗.js):
 
 Above, a source template containing an `h1` element starts with a `data-🔗-text` attribute to communicate a relationship to a JavaScript variable, or property in this case: `data.page.title`. The `text` suffix in the attribute name says that the referenced property should provide the text content for the element. 🔗.js, a tiny 🔗 JavaScript library that can run on the server in Node and in the browser, populates the text of the element while leaving the attribute in place, retaining its relationship to the property for later updates.
 
-### Client-side continuation
+### Running 🔗 on the Server
 
-The example above can simply be used to serve a static HTML page, but in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and 🔗.js library, which can be added to the bottom of the page like so.
+🔗.js can be run in a JavaScript function on a server-side running Node.js, like so:
+
+```js
+import { 🔗 } from './🔗.js';
+import { data } from './data.js';
+import template from './template.html';
+
+export default {
+  async fetch(request) {
+    const html = 🔗(template, data);
+    return new Response(html, {
+      headers: { 'Content-Type': 'text/html' }
+    });
+  }
+};
+```
+
+### Running 🔗 in the Browser
+
+The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and 🔗.js library, which can be added to the bottom of the HTML like so.
 
 ```html
 <script>const data = { page: { title: "This is the article title" } }</script>
 <script defer src="/path/to/🔗.js"></script>
 ```
 
-From there, no custom scripting will be needed to keep HTML elements bound to their data. You could write some code to update that data directly and the HTML will stay in sync.
+From there, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, 🔗.js is designed to listen for updates to the data and update the markup automatically. From here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
 
-It should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
+While it should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
 
-Server HTML Template:
+HTML Template:
 ```html
 <p data-🔗-text="window.innerWidth"></h1>
 ```
 
 ...which would update the text of that element to match the browser window's width, in real time as you resize the window!
 
+## Client-side Manual Updates
+
+🔗 is designed to automatically work with server-generated HTML, but if you want to template fresh HTML on the client-side, simply append your HTML to the DOM and 🔗 will automatically update it with data. That said, if you need to get 🔗-rendered HTML without appending it in the DOM, you can always run the `🔗(template, data)` function as well, by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
 
 ## Attribute Value Linking Conventions
 
