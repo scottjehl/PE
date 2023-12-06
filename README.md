@@ -11,6 +11,8 @@ The goal of 🔗 is to offer a simple way to generate usable and meaningful HTML
 
 In other words, when a variable changes, any markup linked to that variable will update. 
 
+_Small note: [🔗.js](🔗.js) doesn't exist yet. This is the spec from which it will be produced! Sorry._
+
 ## Basic Conventions
 
 Here's a basic example of 🔗 syntax in play, using `data-🔗-text`.
