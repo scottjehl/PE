@@ -154,7 +154,7 @@ Server
 ```html
 <ul data-🔗-each="data.page.navigation">
   <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" data-🔗-text="[].title"></a>
+    <a data-🔗-attr-href="{}.url" data-🔗-text="{}.title"></a>
   </li>
 </ul>
 ```
@@ -163,10 +163,10 @@ HTML Output:
 ```html
 <ul data-🔗-each="data.page.navigation">
   <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" href="/" data-🔗-text="[].title">Home</a>
+    <a data-🔗-attr-href="{}.url" href="/" data-🔗-text="{}.title">Home</a>
   </li>
   <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" href="/contact" data-🔗-text="[].title">Contact</a>
+    <a data-🔗-attr-href="{}.url" href="/contact" data-🔗-text="{}.title">Contact</a>
   </li>
 </ul>
 ```
