@@ -1,9 +1,9 @@
 # 🔗
 A Progressive Enhancement templating language
 
-🔗 (Link) is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
+🔗 ("link") is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
 
-The goal of this tool is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding relationships so it can serve as a template for future updates as well.
+The goal of 🔗 is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding relationships so it can serve as a template for future updates as well.
 
 **The template output is still a template!**
 
