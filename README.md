@@ -237,7 +237,7 @@ Because the templating output of 🔗 is also a template, 🔗 gives you the fle
 As an example, say you want to use regular old PHP to output your HTML on the server. That's fine. Just keep the attributes in place wherever you want relationships to be retained on the clientside:
 
 ```php
-echo '<h1 data-bind-text="data.title">' . $data->title . '</h1>';
+<?php echo '<h1 data-bind-text="data.title">' . $data->title . '</h1>'; ?>
 ```
 
 ...or a JavaScript literal:
