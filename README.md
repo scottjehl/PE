@@ -1,5 +1,5 @@
 # 🔗
-A Progressive Enhancement templating language
+**A Progressive Enhancement templating language**
 
 🔗 ("link") is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
 
