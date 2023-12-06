@@ -1,25 +1,25 @@
-# 🔗
+# P.E.
 **A Progressive Enhancement templating language**
 
-🔗 ("link") is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
+pe (a working title for now) is a Declarative templating and data binding pattern for HTML, which runs in Node.js and in the browser. 
 
-The goal of 🔗 is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding references so it can serve as a template for future updates as well.
+The goal of pe is to offer a simple way to generate usable and meaningful HTML from data that retains its data binding references so it can serve as a template for future updates as well.
 
 **The output of the template is still a template!**
 
-🔗 uses a templating syntax built on standard HTML data attributes that are meant to stay in the HTML after it is rendered, rather than being removed, allowing for simple declarative progressive enhancement in the browser. These attributes reference relationships between HTML elements and JavaScript variables, arrays, objects, and properties for one-way data binding that can populate and update the element's content and attributes. 
+pe uses a templating syntax built on standard HTML data attributes that are meant to stay in the HTML after it is rendered, rather than being removed, allowing for simple declarative progressive enhancement in the browser. These attributes reference relationships between HTML elements and JavaScript variables, arrays, objects, and properties for one-way data binding that can populate and update the element's content and attributes. 
 
 In other words, when a variable changes, any markup linked to that variable will update. 
 
-_Small note: [🔗.js](🔗.js) doesn't exist yet. This is the spec from which it will be produced! Sorry._
+_Small note: [pe.js](pe.js) doesn't exist yet. This is the spec from which it will be produced! Sorry._
 
 ## Basic Conventions
 
-Here's a basic example of 🔗 syntax in play, using `data-🔗-text`.
+Here's a basic example of pe syntax in play, using `data-pe-text`.
 
 Server HTML Template:
 ```html
-<h1 data-🔗-text="data.page.title"></h1>
+<h1 data-pe-text="data.page.title"></h1>
 ```
 
 Data Source:
@@ -27,25 +27,25 @@ Data Source:
 const data = { page: { title: "This is the article title" } }
 ```
 
-HTML Output (after parsing by 🔗.js):
+HTML Output (after parsing by pe.js):
 ```html
-<h1 data-🔗-text="data.page.title">This is the article title</h1>
+<h1 data-pe-text="data.page.title">This is the article title</h1>
 ```
 
-Above, a source template containing an `h1` element starts with a `data-🔗-text` attribute to communicate a relationship to a JavaScript variable, or property in this case: `data.page.title`. The `text` suffix in the attribute name says that the referenced property should provide the text content for the element. 🔗.js, a tiny 🔗 JavaScript library that can run on the server in Node and in the browser, populates the text of the element while leaving the attribute in place, retaining its relationship to the property for later updates.
+Above, a source template containing an `h1` element starts with a `data-pe-text` attribute to communicate a relationship to a JavaScript variable, or property in this case: `data.page.title`. The `text` suffix in the attribute name says that the referenced property should provide the text content for the element. pe.js, a tiny pe JavaScript library that can run on the server in Node and in the browser, populates the text of the element while leaving the attribute in place, retaining its relationship to the property for later updates.
 
-### Running 🔗 on the Server
+### Running pe on the Server
 
-🔗.js can be run in a JavaScript function on a server-side running Node.js, like so:
+pe.js can be run in a JavaScript function on a server-side running Node.js, like so:
 
 ```js
-import { 🔗 } from './🔗.js';
+import { pe } from './pe.js';
 import { data } from './data.js';
 import template from './template.html';
 
 export default {
   async fetch(request) {
-    const html = 🔗(template, data);
+    const html = pe(template, data);
     return new Response(html, {
       headers: { 'Content-Type': 'text/html' }
     });
@@ -53,39 +53,39 @@ export default {
 };
 ```
 
-### Running 🔗 in the Browser
+### Running pe in the Browser
 
-The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and 🔗.js library, which can be added to the bottom of the HTML like so.
+The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the bottom of the HTML like so.
 
 ```html
 <script>const data = { page: { title: "This is the article title" } }</script>
-<script defer src="/path/to/🔗.js"></script>
+<script defer src="/path/to/pe.js"></script>
 ```
 
-With those in place, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, 🔗.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
+With those in place, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, pe.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
 
-While it should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
+While it should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-pe-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, pe can even track a built-in variable like `window.innerWidth`:
 
 HTML Template:
 ```html
-<p data-🔗-text="window.innerWidth"></h1>
+<p data-pe-text="window.innerWidth"></h1>
 ```
 
 ...which would update the text of that element to match the browser window's width, in real time as you resize the window!
 
 ## Client-side Manual Updates
 
-🔗 is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with 🔗 on the client-side, simply append your HTML to the DOM and 🔗 will automatically update it appropriately. 
+pe is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with pe on the client-side, simply append your HTML to the DOM and pe will automatically update it appropriately. 
 
-That said, if you want to get 🔗-rendered HTML before appending it in the DOM, you can always run the `🔗(template, data)` function directly by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
+That said, if you want to get pe-rendered HTML before appending it in the DOM, you can always run the `pe(template, data)` function directly by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
 
 ## Attribute Value Linking Conventions
 
-In addition to binding an element's text content to JavaScript variables, 🔗 can bind the values of an element's attributes as well. You do this via the `data-🔗-attr-` attribute prefix, which can be combined with any attribute you'd like to control on the element. For example, here's a link with an `href` attribute bound to a property:
+In addition to binding an element's text content to JavaScript variables, pe can bind the values of an element's attributes as well. You do this via the `data-pe-attr-` attribute prefix, which can be combined with any attribute you'd like to control on the element. For example, here's a link with an `href` attribute bound to a property:
 
 Server HTML Template:
 ```html
-<a data-🔗-attr-href="callToActionURL">Buy my book!</a>
+<a data-pe-attr-href="callToActionURL">Buy my book!</a>
 ```
 
 Data Source:
@@ -95,7 +95,7 @@ const callToActionURL = "https://mybookwebsite.com"
 
 HTML Output:
 ```html
-<a data-🔗-attr-href="callToActionURL" href="https://mybookwebsite.com">Buy my book!</a>
+<a data-pe-attr-href="callToActionURL" href="https://mybookwebsite.com">Buy my book!</a>
 ```
 
 Again, should that `callToActionURL` update at any time, the link's href will update to match it.
@@ -111,10 +111,10 @@ const data = { page: { title: "This is the article title" } }
 
 Server HTML Template:
 ```html
-<h1 data-🔗="data.page"></h1>
+<h1 data-pe="data.page"></h1>
 ```
 
-That object binding alone will not do anything yet, but once an element is bound to an object or array, additional 🔗 attributes on that element or on that element's child elements can reference that array or object with shorthand of either `[]` or `{}`. 
+That object binding alone will not do anything yet, but once an element is bound to an object or array, additional pe attributes on that element or on that element's child elements can reference that array or object with shorthand of either `[]` or `{}`. 
 
 The following example is functionally equivalent to the first H1 example above, using shorthand syntax:
 
@@ -125,12 +125,12 @@ const data = { page: { title: "This is the article title" } }
 
 Server HTML Template:
 ```html
-<h1 data-🔗="data.page" data-🔗-text="{}.title"></h1>
+<h1 data-pe="data.page" data-pe-text="{}.title"></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-🔗="data.page" data-🔗-text="{}.title">This is the article title</h1>
+<h1 data-pe="data.page" data-pe-text="{}.title">This is the article title</h1>
 ```
 
 Here's an example using the array shorthand to reference the second item in an array:
@@ -141,12 +141,12 @@ const greetings = ["hi", "hello"]
 ```
 
 ```html
-<h1 data-🔗="hooray" data-🔗-text="[][1]"></h1>
+<h1 data-pe="hooray" data-pe-text="[][1]"></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-🔗="hooray" data-🔗-text="[][1]">hello</h1>
+<h1 data-pe="hooray" data-pe-text="[][1]">hello</h1>
 ```
 
 This shorthand syntax is convenient when specifying many attributes from the same object. You can also use the shorthand for child elements.
@@ -158,20 +158,20 @@ const user = {name: "Scott", id: "12345"}
 
 Server
 ```html
-<h1 data-🔗="data.user">Hey there, <span data-🔗-text="{}.name"></span></h1>
+<h1 data-pe="data.user">Hey there, <span data-pe-text="{}.name"></span></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-🔗="data.user">Hey there, <span data-🔗-text="{}.name">Scott</span></h1>
+<h1 data-pe="data.user">Hey there, <span data-pe-text="{}.name">Scott</span></h1>
 ```
 
 
 ## Loops
 
-For looping through arrays to say, generate an HTML list, 🔗 offers a special attribute: `data-🔗-each`. 
+For looping through arrays to say, generate an HTML list, pe offers a special attribute: `data-pe-each`. 
 
-This attribute is unique because 🔗 will treat that element's first child element that has an `data-🔗-each-item` attribute as a template for rendering every item in the array, replacing its content and relevant bound attributes to reflect each array's data. When 🔗 is parsing an `each` element (such as when the HTML is initially generated, or when the array changes state), if it encounters additional child element siblings that also have that attribute, it will remove them from the HTML so that the items match the items in the array.
+This attribute is unique because pe will treat that element's first child element that has an `data-pe-each-item` attribute as a template for rendering every item in the array, replacing its content and relevant bound attributes to reflect each array's data. When pe is parsing an `each` element (such as when the HTML is initially generated, or when the array changes state), if it encounters additional child element siblings that also have that attribute, it will remove them from the HTML so that the items match the items in the array.
 
 Here's an example:
 
@@ -189,28 +189,28 @@ const data = {
 
 Server
 ```html
-<ul data-🔗-each="data.page.navigation">
-  <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" data-🔗-text="{}.title"></a>
+<ul data-pe-each="data.page.navigation">
+  <li data-pe-each-item>
+    <a data-pe-attr-href="[].url" data-pe-text="[].title"></a>
   </li>
 </ul>
 ```
 
 HTML Output:
 ```html
-<ul data-🔗-each="data.page.navigation">
-  <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" href="/" data-🔗-text="{}.title">Home</a>
+<ul data-pe-each="data.page.navigation">
+  <li data-pe-each-item>
+    <a data-pe-attr-href="[].url" href="/" data-pe-text="[].title">Home</a>
   </li>
-  <li data-🔗-each-item>
-    <a data-🔗-attr-href="{}.url" href="/contact" data-🔗-text="{}.title">Contact</a>
+  <li data-pe-each-item>
+    <a data-pe-attr-href="[].url" href="/contact" data-pe-text="[].title">Contact</a>
   </li>
 </ul>
 ```
 
 ## One-time Bindings
 
-For content that will not need to update or change after it is generated once, 🔗 offers the `data-🔗-once` attribute. When this attribute is present, 🔗 will follow attribute instructions and then remove them, so the element will receive no further updates. This is helpful for minimizing the performance toll of observing large data structures throughout a page.
+For content that will not need to update or change after it is generated once, pe offers the `data-pe-once` attribute. When this attribute is present, pe will follow attribute instructions and then remove them, so the element will receive no further updates. This is helpful for minimizing the performance toll of observing large data structures throughout a page.
 
 Here's an example.
 
@@ -221,7 +221,7 @@ const user = {name: "Scott", id: "12345"}
 
 Server
 ```html
-<h1 data-🔗="data.user" data-🔗-once>Hey there, <span data-🔗-text="{}.name"></span></h1>
+<h1 data-pe="data.user" data-pe-once>Hey there, <span data-pe-text="{}.name"></span></h1>
 ```
 
 HTML Output:
@@ -229,12 +229,12 @@ HTML Output:
 <h1>Hey there, <span>Scott</span></h1>
 ```
 
-Note: For simplicity sake, `data-🔗-once` applies not only to the element with the attribute, but also to all of that element's children, even if those children are bound to different properties than the parent.
+Note: For simplicity sake, `data-pe-once` applies not only to the element with the attribute, but also to all of that element's children, even if those children are bound to different properties than the parent.
 
 
-## Serving 🔗 HTML with any server language
+## Serving pe HTML with any server language
 
-Because the templating output of 🔗 is also a template, 🔗 gives you the flexibility to use any server templating language you prefer and still run 🔗.js in the browser, or even no templating language at all. 🔗's declarative attributes are there to communicate data binding relationships that matter to the markup, but the only thing you need to be concerned with is delivering HTML that has the attributes in place.
+Because the templating output of pe is also a template, pe gives you the flexibility to use any server templating language you prefer and still run pe.js in the browser, or even no templating language at all. pe's declarative attributes are there to communicate data binding relationships that matter to the markup, but the only thing you need to be concerned with is delivering HTML that has the attributes in place.
 
 As an example, say you want to use regular old PHP to output your HTML on the server. That's fine. Just keep the attributes in place wherever you want relationships to be retained on the clientside:
 
@@ -252,9 +252,9 @@ The client-side doesn't care how the initial HTML was generated. It only cares a
 
 ## Caveats and Considerations
 
-- First, 🔗.js doesn't exist yet! Sorry. It's [in development](🔗.js)!
-- Second, text binding works best when setting the entire inner content of an element. This means that in situations where you might be used to say, dropping a string variable like `hello, {{user.name}}!` into the text in an element, you'll likely want to use a wrapper element to isolate it instead, like this: `hello, <span data-🔗-text="user.name"></span>`
-- Lastly, if you want to run 🔗 without 🔗.js on the server, or 
+- First, pe.js doesn't exist yet! Sorry. It's [in development](pe.js)!
+- Second, text binding works best when setting the entire inner content of an element. This means that in situations where you might be used to say, dropping a string variable like `hello, {{user.name}}!` into the text in an element, you'll likely want to use a wrapper element to isolate it instead, like this: `hello, <span data-pe-text="user.name"></span>`
+- Lastly, if you want to run pe without pe.js on the server, or 
 
 
 ## More soon! -Scott :)
