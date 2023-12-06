@@ -11,7 +11,7 @@ pe uses a templating syntax built on standard HTML data attributes that are mean
 
 In other words, when a variable changes, any markup linked to that variable will update. 
 
-_Small note: [pe.js](pe.js) doesn't exist yet. This is the spec from which it will be produced! Sorry._
+**_Small note: [pe.js](pe.js) doesn't exist yet. This is the spec from which it will be produced! All examples are pseudo-code describing how it will potentially work. Sorry! :)_**
 
 ## Basic Conventions
 
@@ -39,8 +39,8 @@ Above, a source template containing an `h1` element starts with a `data-pe-text`
 pe.js can be run in a JavaScript function on a server-side running Node.js, like so:
 
 ```js
-import { pe } from './pe.js';
-import { data } from './data.js';
+import pe from './pe.js';
+import data from './data.js';
 import template from './template.html';
 
 export default {
