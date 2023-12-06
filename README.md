@@ -73,7 +73,9 @@ HTML Template:
 
 ## Client-side Manual Updates
 
-🔗 is designed to automatically work with server-generated HTML, but if you want to template fresh HTML on the client-side, simply append your HTML to the DOM and 🔗 will automatically update it with data. That said, if you need to get 🔗-rendered HTML without appending it in the DOM, you can always run the `🔗(template, data)` function as well, by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
+🔗 is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with 🔗 on the client-side, simply append your HTML to the DOM and 🔗 will automatically update it appropriately. 
+
+That said, if you want to get 🔗-rendered HTML before appending it in the DOM, you can always run the `🔗(template, data)` function directly by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
 
 ## Attribute Value Linking Conventions
 
@@ -248,12 +250,12 @@ The client-side doesn't care how the initial HTML was generated. It only cares a
 
 ## Caveats and Considerations
 
-- First, 🔗.js doesn't exist yet. It's [in development](🔗.js)!
+- First, 🔗.js doesn't exist yet! Sorry. It's [in development](🔗.js)!
 - Second, text binding works best when setting the entire inner content of an element. This means that in situations where you might be used to say, dropping a string variable like `hello, {{user.name}}!` into the text in an element, you'll likely want to use a wrapper element to isolate it instead, like this: `hello, <span data-🔗-text="user.name"></span>`
 - Lastly, if you want to run 🔗 without 🔗.js on the server, or 
 
 
-## More soon!
+## More soon! -Scott :)
 
 
 
