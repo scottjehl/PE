@@ -60,7 +60,7 @@ The example above can simply be used to serve a static HTML page, and often that
 <script defer src="/path/to/🔗.js"></script>
 ```
 
-From there, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, 🔗.js is designed to listen for updates to the data and update the markup automatically. From here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
+With those in place, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, 🔗.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
 
 While it should be noted that while this first example shows a common relationship to a property in a potentially large data structure, `data-🔗-text` can reference any variable available in the environment you'd like. As a wild example, on the client-side, 🔗 can even track a built-in variable like `window.innerWidth`:
 
