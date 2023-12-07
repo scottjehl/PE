@@ -135,7 +135,7 @@ HTML Output:
 <h1 data-pe="greetings" data-pe-text="[][1]">hello</h1>
 ```
 
-This shorthand syntax is convenient when specifying many attributes from the same object. You can also use the shorthand for child elements.
+This shorthand syntax is convenient when specifying many attributes from the same object. You can also use the shorthand for child elements of any depth, and the same context will be used until a child element binds to an object or array itself.
 
 Data Source:
 ```js
