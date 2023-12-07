@@ -127,12 +127,12 @@ const greetings = ["hi", "hello"]
 ```
 
 ```html
-<h1 data-pe="hooray" data-pe-text="[][1]"></h1>
+<h1 data-pe="greetings" data-pe-text="[][1]"></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-pe="hooray" data-pe-text="[][1]">hello</h1>
+<h1 data-pe="greetings" data-pe-text="[][1]">hello</h1>
 ```
 
 This shorthand syntax is convenient when specifying many attributes from the same object. You can also use the shorthand for child elements.
