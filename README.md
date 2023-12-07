@@ -100,7 +100,7 @@ Server HTML Template:
 <h1 data-pe="data.page"></h1>
 ```
 
-That object binding alone will not do anything yet, but once an element is bound to an object or array, additional pe attributes on that element or on that element's child elements can reference that array or object with shorthand of either `[]` or `{}`. 
+That object binding alone will not do anything yet, but once an element is bound to an object or array, additional pe attributes on that element or on that element's child elements can reference that array or object with shorthand of `$`. 
 
 The following example is functionally equivalent to the first H1 example above, using shorthand syntax:
 
@@ -111,12 +111,12 @@ const data = { page: { title: "This is the article title" } }
 
 Server HTML Template:
 ```html
-<h1 data-pe="data.page" data-pe-text="{}.title"></h1>
+<h1 data-pe="data.page" data-pe-text="$.title"></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-pe="data.page" data-pe-text="{}.title">This is the article title</h1>
+<h1 data-pe="data.page" data-pe-text="$.title">This is the article title</h1>
 ```
 
 Here's an example using the array shorthand to reference the second item in an array:
@@ -127,12 +127,12 @@ const greetings = ["hi", "hello"]
 ```
 
 ```html
-<h1 data-pe="greetings" data-pe-text="[][1]"></h1>
+<h1 data-pe="greetings" data-pe-text="$[1]"></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-pe="greetings" data-pe-text="[][1]">hello</h1>
+<h1 data-pe="greetings" data-pe-text="$[1]">hello</h1>
 ```
 
 This shorthand syntax is convenient when specifying many attributes from the same object. You can also use the shorthand for child elements of any depth, and the same context will be used until a child element binds to an object or array itself.
@@ -144,12 +144,12 @@ const user = {name: "Scott", id: "12345"}
 
 Server
 ```html
-<h1 data-pe="data.user">Hey there, <span data-pe-text="{}.name"></span></h1>
+<h1 data-pe="data.user">Hey there, <span data-pe-text="$.name"></span></h1>
 ```
 
 HTML Output:
 ```html
-<h1 data-pe="data.user">Hey there, <span data-pe-text="{}.name">Scott</span></h1>
+<h1 data-pe="data.user">Hey there, <span data-pe-text="$.name">Scott</span></h1>
 ```
 
 
@@ -157,7 +157,9 @@ HTML Output:
 
 For looping through arrays to say, generate an HTML list, pe offers a special attribute: `data-pe-each`. 
 
-This attribute is unique because pe will treat that element's first child element that has an `data-pe-each-item` attribute as a template for rendering every item in the array, replacing its content and relevant bound attributes to reflect each array's data. When pe is parsing an `each` element (such as when the HTML is initially generated, or when the array changes state), if it encounters additional child element siblings that also have that attribute, it will remove them from the HTML so that the items match the items in the array.
+This attribute is unique because pe will treat the first element that has an `data-pe-each` attribute as a template for rendering every item in the array as siblings of that first element, replacing its content and relevant bound attributes to reflect each array item's data. When pe is parsing an `each` element (such as when HTML is initially generated, or when the array changes state later on), if it encounters additional element siblings that also have that attribute, it will remove them from the HTML so that the items match the items in the array.
+
+Unlike ordinary shorthand, in a `data-pe-each` loop the `$` references an item of the array, rather than the parent array.
 
 Here's an example:
 
@@ -175,28 +177,28 @@ const data = {
 
 Server
 ```html
-<ul data-pe-each="data.page.navigation">
-  <li data-pe-each-item>
-    <a data-pe-attr-href="[].url" data-pe-text="[].title"></a>
+<ul>
+  <li data-pe-each="data.page.navigation">
+    <a data-pe-attr-href="$.url" data-pe-text="$.title"></a>
   </li>
 </ul>
 ```
 
 HTML Output:
 ```html
-<ul data-pe-each="data.page.navigation">
-  <li data-pe-each-item>
-    <a data-pe-attr-href="[].url" href="/" data-pe-text="[].title">Home</a>
+<ul>
+  <li data-pe-each="data.page.navigation">
+    <a data-pe-attr-href="$.url" href="/" data-pe-text="$.title">Home</a>
   </li>
-  <li data-pe-each-item>
-    <a data-pe-attr-href="[].url" href="/contact" data-pe-text="[].title">Contact</a>
+  <li data-pe-each="data.page.navigation">
+    <a data-pe-attr-href="$.url" href="/contact" data-pe-text="$.title">Contact</a>
   </li>
 </ul>
 ```
 
 ## One-time Bindings
 
-For content that will not need to update or change after it is generated once, pe offers the `data-pe-once` attribute. When this attribute is present, pe will follow attribute instructions and then remove them, so the element will receive no further updates. This is helpful for minimizing the performance toll of observing large data structures throughout a page.
+For content that will not need to update or change after it is generated once, pe offers the `data-pe-once` attribute. When this attribute is present, pe will remove the attribute instructions for the output HTML, so the element will receive no further updates. This is helpful for minimizing the performance toll of observing large data structures throughout a page.
 
 Here's an example.
 
@@ -207,7 +209,7 @@ const user = {name: "Scott", id: "12345"}
 
 Server
 ```html
-<h1 data-pe="data.user" data-pe-once>Hey there, <span data-pe-text="{}.name"></span></h1>
+<h1 data-pe="data.user" data-pe-once>Hey there, <span data-pe-text="$.name"></span></h1>
 ```
 
 HTML Output:
@@ -220,7 +222,7 @@ Note: For simplicity sake, `data-pe-once` applies not only to the element with t
 
 ## Serving pe HTML with any server language
 
-Because the templating output of pe is also a template, pe gives you the flexibility to use any server templating language you prefer and still run pe.js in the browser, or even no templating language at all. pe's declarative attributes are there to communicate data binding relationships that matter to the markup, but the only thing you need to be concerned with is delivering HTML that has the attributes in place.
+Because the templating output of pe is also a template, pe gives you the flexibility to use any server templating language you prefer and still run pe.js in the browser. You might even choose to use no templating language at all, manually marking up certain elements that will be dynamic and data bound on the client-side. 
 
 As an example, say you want to use regular old PHP to output your HTML on the server. That's fine. Just keep the attributes in place wherever you want relationships to be retained on the clientside:
 
@@ -233,13 +235,13 @@ As an example, say you want to use regular old PHP to output your HTML on the se
 let html = `<h1 data-bind-text="data.title">${data.title}</h1>`
 ```
 
-The client-side doesn't care how the initial HTML was generated. It only cares about keeping the HTML in sync wherever you care to do so.
+The client-side doesn't care how the initial HTML was generated. It only cares about keeping the HTML in sync with data wherever you tell it to do so.
 
 
 ## Caveats and Considerations
 
 - First, pe.js doesn't exist yet! Sorry. It's [in development](pe.js)!
-- Second, text binding works best when setting the entire inner content of an element. This means that in situations where you might be used to say, dropping a string variable like `hello, {{user.name}}!` into the text in an element, you'll likely want to use a wrapper element to isolate it instead, like this: `hello, <span data-pe-text="user.name"></span>`
+- Second, `text` binding works best when setting the entire inner content of an element. This means that in situations where you might be used to using a variable mid-string, like `hello, {{user.name}}!`, you'll likely want to use a wrapper element to isolate that variable's output instead, like this: `hello, <span data-pe-text="user.name"></span>!`
 
 
 ## More soon! -Scott :)
