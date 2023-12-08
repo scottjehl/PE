@@ -5,10 +5,10 @@ export default {
       
 
       	const store = { 
-      			title: "My List",
+      			title: "Hey, this is a PE.js demo page.",
       			listitems: [
-      				{text: "here is a list item"}, 
-      				{text: "here is another one"},
+      				{text: "You can try it in the console."}, 
+      				{text: "For example, change the value of store.title or store.listitems[1].text"},
       			]
       	};
       
@@ -23,17 +23,14 @@ export default {
         </ul>
         
         <script type="module">
+          // get the PE lib
           import pe from './pe.js';
+          // get the json that was used to populate the markup in the first place
           const store = JSON.parse('${JSON.stringify(store)}');
-          // pass the store to a new PE instance
+          // pass it to a new PE instance
           const PE = new pe(store, "store");
+          // expose it for fun
           window.store = PE.data;
-          console.log('store.title = "PE says hello"');
-          console.log(window.store.title = "PE says hello");
-          console.log('store.listitems[0].text = "It made some updates to this HTML"');
-          console.log(window.store.listitems[0].text = "It made some updates to this HTML");
-          console.log('store.listitems[1].text = "Check the console to see how..."');
-          console.log(window.store.listitems[1].text = "Check the console to see how...");          
         </script>
         </body>
         </html>
