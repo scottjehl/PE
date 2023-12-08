@@ -11,7 +11,7 @@ pe uses a templating syntax built on standard HTML data attributes that are mean
 
 In other words, when a variable changes, any markup linked to that variable will update. 
 
-**_Small note: [pe.js](pe.js) doesn't exist yet. This is the spec from which it will be produced! All examples are pseudo-code describing how it will potentially work. Sorry! :)_**
+**_Small note: [pe.js](demo/pe.js) doesn't exist yet. This is the spec from which it will be produced! All examples are pseudo-code describing how it will potentially work. Sorry! :)_**
 
 ## Basic Conventions
 
@@ -36,7 +36,7 @@ Above, a source template containing an `h1` element starts with a `data-pe-text`
 
 ### Running pe on the Server
 
-pe.js can be run in a JavaScript function on a server-side running Node.js, like so:
+pe.js could be run in a JavaScript function on a server-side running Node.js, like so:
 
 ```js
 import pe from './pe.js';
@@ -55,7 +55,7 @@ export default {
 
 ### Running pe in the Browser
 
-The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the HTML as a whole, or ideally, used within Web Components to scope the data locally.
+The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the HTML as a whole, or ideally, within a scope of say, a web component.
 
 With the data and pe.js loaded in the browser, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, pe.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
 
@@ -240,7 +240,7 @@ The client-side doesn't care how the initial HTML was generated. It only cares a
 
 ## Caveats and Considerations
 
-- First, pe.js doesn't exist yet! Sorry. It's [in development](pe.js)!
+- First, pe.js doesn't really exist yet! Sorry. I'm playing with ideas in [in development](demo/pe.js)
 - Second, `text` binding works best when setting the entire inner content of an element. This means that in situations where you might be used to using a variable mid-string, like `hello, {{user.name}}!`, you'll likely want to use a wrapper element to isolate that variable's output instead, like this: `hello, <span data-pe-text="user.name"></span>!`
 
 
