@@ -7,8 +7,8 @@ export default {
       	const store = { 
       			title: "My List",
       			listitems: [
-      				{text: "here's a list item"}, 
-      				{text: "here's another one"},
+      				{text: "here is a list item"}, 
+      				{text: "here is another one"},
       			]
       	};
       
