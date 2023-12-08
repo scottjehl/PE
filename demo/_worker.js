@@ -28,9 +28,12 @@ export default {
           // pass the store to a new PE instance
           const PE = new pe(store, "store");
           window.store = PE.data;
+          console.log('store.title = "PE says hello"');
           console.log(window.store.title = "PE says hello");
+          console.log('store.listitems[0].text = "It made some updates to this HTML"');
           console.log(window.store.listitems[0].text = "It made some updates to this HTML");
-          console.log(window.store.listitems[1].text = "Check the console to see how...");
+          console.log('store.listitems[1].text = "Check the console to see how..."');
+          console.log(window.store.listitems[1].text = "Check the console to see how...");          
         </script>
         </body>
         </html>
