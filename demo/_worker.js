@@ -1,3 +1,4 @@
+// despite the confusing filename, this is just a worker that serves the index HTML page for this demo.
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
