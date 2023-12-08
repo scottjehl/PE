@@ -28,7 +28,7 @@ export default {
           // pass the store to a new PE instance
           const PE = new pe(store, "store");
           window.store = PE.data;
-          console.log('hey, PE is running. try running `store.title = "yayyy"`');
+          console.log('hey, PE is running. Check this out: ' + store.title = "yayyy");
         </script>
         </body>
         </html>
