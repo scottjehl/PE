@@ -24,7 +24,7 @@ export default {
         
         <script type="module">
           import pe from 'pe.js';
-          const store = JSON.parse(`${JSON.stringify(store)}`);
+          const store = JSON.parse('${JSON.stringify(store)}');
           // pass the store to a new PE instance
           const PE = new pe(store, "store");
           window.store = PE.data;
