@@ -34,38 +34,7 @@ HTML Output (after parsing by pe.js):
 
 Above, a source template containing an `h1` element starts with a `data-pe-text` attribute to communicate a relationship to a JavaScript variable, or property in this case: `data.page.title`. The `text` suffix in the attribute name says that the referenced property should provide the text content for the element. pe.js, a tiny pe JavaScript library that can run on the server in Node and in the browser, populates the text of the element while leaving the attribute in place, retaining its relationship to the property for later updates.
 
-### Running pe on the Server
-
-pe.js could be run in a JavaScript function on a server-side running Node.js, like so:
-
-```js
-import pe from './pe.js';
-import data from './data.js';
-import template from './template.html';
-
-export default {
-  async fetch(request) {
-    const html = pe(template, data);
-    return new Response(html, {
-      headers: { 'Content-Type': 'text/html' }
-    });
-  }
-};
-```
-
-### Running pe in the Browser
-
-The example above can simply be used to serve a static HTML page, and often that's enough! But in order to reinstate the data binding relationship on the client for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the HTML as a whole, or ideally, within a scope of say, a web component.
-
-With the data and pe.js loaded in the browser, no additional custom scripting will be needed to keep HTML elements bound to their data sources. In the browser, pe.js is designed to listen for updates to the data and update the markup automatically. So from here, any code you write that updates data sources directly will cause the HTML to reflect those changes. 
-
-## Client-side Manual Updates
-
-pe is designed to automatically work with any HTML in the DOM, so if you want to render fresh HTML with pe on the client-side, simply append your HTML to the (light) DOM and pe will automatically update it appropriately. 
-
-That said, if you want to get pe-rendered HTML before appending it in the DOM, you can always run the `pe(template, data)` function directly by passing it a string of HTML and a reference to the data it will use. It will return a string of rendered HTML just as it would on the server. 
-
-## Attribute Value Linking Conventions
+## Attribute Value Binding Conventions
 
 In addition to binding an element's text content to JavaScript variables, pe can bind the values of an element's attributes as well. You do this via the `data-pe-attr-` attribute prefix, which can be combined with any attribute you'd like to control on the element. For example, here's a link with an `href` attribute bound to a property:
 
@@ -73,19 +42,15 @@ Server HTML Template:
 ```html
 <a data-pe-attr-href="callToActionURL">Buy my book!</a>
 ```
-
 Data Source:
 ```js
 const callToActionURL = "https://mybookwebsite.com"
 ```
-
 HTML Output:
 ```html
 <a data-pe-attr-href="callToActionURL" href="https://mybookwebsite.com">Buy my book!</a>
 ```
-
 Again, should that `callToActionURL` update at any time, the link's href will update to match it.
-
 
 ## Arrays and Object Binding
 In addition to simple string variables, you can bind elements to objects and arrays too. Like this.
@@ -94,7 +59,6 @@ Data Source:
 ```js
 const data = { page: { title: "This is the article title" } }
 ```
-
 Server HTML Template:
 ```html
 <h1 data-pe="data.page"></h1>
@@ -219,6 +183,48 @@ HTML Output:
 
 Note: For simplicity sake, `data-pe-once` applies not only to the element with the attribute, but also to all of that element's children, even if those children are bound to different properties than the parent.
 
+
+### Running pe in the Browser
+
+In order to establish a data binding relationship on the client-side for dynamic updates, the HTML needs to contain the referenced data source and pe.js library, which can be added to the HTML as a whole, or ideally, within a scope of say, a web component.
+
+It currently looks like this: 
+
+```js
+// get the PE lib
+import pe from './pe.js';
+
+// get the json that was used to populate the markup in the first place
+const store = JSON.parse('{"title":"Here is a title","listitems":[{"text":"this is the first item"},{"text":"this is the second item"}]}');
+
+// pass it to a new PE instance
+const PE = new pe(store, "store");
+
+// make updates and see the HTML update
+store.listitems[1].text = "Hey";
+```
+
+[This very basic demo](https://pe-1xm.pages.dev) shows that in action.
+
+
+### Running pe on the Server
+
+pe.js could be run in a JavaScript function on a server-side running Node.js, perhaps like this, but this part remains TBD:
+
+```js
+import pe from './pe.js';
+import data from './data.js';
+import template from './template.html';
+
+export default {
+  async fetch(request) {
+    const html = pe(template, data);
+    return new Response(html, {
+      headers: { 'Content-Type': 'text/html' }
+    });
+  }
+};
+```
 
 ## Serving pe HTML with any server language
 
