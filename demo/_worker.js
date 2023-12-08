@@ -12,23 +12,7 @@ export default {
       			]
       	};
       
-        const html = `<!DOCTYPE html><body>
-        <h1 data-pe-text="store.title">${store.title}</h1>
-        <ul>
-          ${store.listitems.map((item,i) => `
-            <li data-pe-each="store.listitems" data-pe-text="store.listitems[${i}].text">${item.text}</li>
-          `).join('')}
-        </ul>
-        
-        <script type="module">
-          import pe from 'pe.js';
-          const store = JSON.parse('${JSON.stringify(store)}');
-          // pass the store to a new PE instance
-          const PE = new pe(store, "store");
-          window.store = PE.data;
-        </script>
-        </body></html>	
-        `;
+        const html = `yay`;
       
         return new Response(html, {
           headers: {
