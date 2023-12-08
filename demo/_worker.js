@@ -1,7 +1,7 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/index')) {
+    if (url.pathname === '/' ) {
       
 
       	const store = { 
