@@ -23,7 +23,7 @@ export default {
         </ul>
         
         <script type="module">
-          import pe from 'pe.js';
+          import pe from './pe.js';
           const store = JSON.parse('${JSON.stringify(store)}');
           // pass the store to a new PE instance
           const PE = new pe(store, "store");
