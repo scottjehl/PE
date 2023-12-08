@@ -10,7 +10,7 @@ export default {
       				{text: "here's a list item"}, 
       				{text: "here's another one"}
       			]
-      	}
+      	};
       
         const html = `<!DOCTYPE html><body>
         <h1 data-pe-text="store.title">${store.title}</h1>
@@ -22,13 +22,14 @@ export default {
         
         <script type="module">
           import pe from '/pe.js';
-          const store = JSON.parse('${JSON.stringify(store)}');
+          const store = JSON.parse(`${JSON.stringify(store)}`);
           // pass the store to a new PE instance
           const PE = new pe(store, "store");
           window.store = PE.data;
         </script>
         </body></html>	
         `;
+      
         return new Response(html, {
           headers: {
             "content-type": "text/html;charset=UTF-8",
