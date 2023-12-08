@@ -20,7 +20,7 @@ export default function pe (data, dataStrName){
       // update target data source
       target[prop] = val;
       let selectorPath = dataStrName + path.join('') + ( prop ? "." + prop : '' );
-      console.log(selectorPath);
+      //console.log(selectorPath);
       document.querySelectorAll(`[data-pe-text='${selectorPath}'`).forEach(elem => {
         elem.textContent = val;
       });
