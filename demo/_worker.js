@@ -14,6 +14,7 @@ export default {
       
         const html = `<!DOCTYPE html>
         <html>
+        <title>PE.js playground</title>
         <body>
         <h1 data-pe-text="store.title">${store.title}</h1>
         <ul>
