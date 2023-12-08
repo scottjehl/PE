@@ -1,4 +1,4 @@
-// so far, PE is limited. It'll update the markup when you update the data source's strings. More soon.
+// Currently, PE is limited. It'll update the markup when you update the data source's strings. More soon.
 export default function pe (data, dataStrName){
   if( data === undefined || dataStrName  === undefined ){
     throw('data and a string name of the data both required');
