@@ -8,7 +8,7 @@ export default {
       			title: "My List",
       			listitems: [
       				{text: "here's a list item"}, 
-      				{text: "here's another one"}
+      				{text: "here's another one"},
       			]
       	};
       
